@@ -42,6 +42,7 @@ mapdb-api:latest
 subversion:latest
 durable-task:latest
 script-security:latest
+display-url-api:latest
 mailer:latest
 ace-editor:latest
 jquery-detached:latest
