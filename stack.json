@@ -19,20 +19,20 @@
     "EC2Instance": {
       "Type": "AWS::EC2::Instance",
       "Properties": {
-        "ImageId": "ami-75a38416",
+        "ImageId": "ami-275ffe31",
         "InstanceType": "t2.micro",
         "SubnetId": { "Ref": "SubnetId" },
         "KeyName": { "Ref": "KeyName" },
         "SecurityGroupIds": [ { "Ref": "EC2InstanceSecurityGroup" } ],
         "IamInstanceProfile": { "Ref": "EC2InstanceProfile" },
         "UserData" : { 
-          "Fn::Base64" : { "Fn::Join" : ["", [
-            "#!/bin/bash\n",
-            "echo ECS_CLUSTER=", { "Ref" : "EcsCluster" }, " >> /etc/ecs/ecs.config\n",
-            "groupadd -g 1000 jenkins\n",
-            "useradd -u 1000 -g jenkins jenkins\n",
-            "mkdir -p /ecs/jenkins_home\n",
-            "chown -R jenkins:jenkins /ecs/jenkins_home\n"
+          "Fn::Base64" : { "Fn::Join" : ["\n", [
+            "#!/bin/bash",
+            "echo ECS_CLUSTER=", { "Ref" : "EcsCluster" }, " >> /etc/ecs/ecs.config",
+            "groupadd -g 1000 jenkins",
+            "useradd -u 1000 -g jenkins jenkins",
+            "mkdir -p /ecs/jenkins_home",
+            "chown -R jenkins:jenkins /ecs/jenkins_home"
           ] ] } 
         },
         "Tags": [ { "Key": "Name", "Value": { "Fn::Join": ["", [ { "Ref": "AWS::StackName" }, "-instance" ] ] } } ]
@@ -128,7 +128,7 @@
         "ContainerDefinitions" : [ 
           {
             "Name": "jenkins",
-            "Image": "imkheong/jenkins:ecs",
+            "Image": "imkheong/jenkins:latest",
             "Memory": 995,
             "PortMappings": [ { "ContainerPort": 8080, "HostPort": 8080 } ],
             "MountPoints": [
